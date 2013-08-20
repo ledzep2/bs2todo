@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="styles/style.css" />
+<link rel="stylesheet" href="styles/jquery-ui.css" />
+<title>BS2Todo</title>
+<script type='text/javascript' src='jquery.js'></script>
+<script type='text/javascript' src='jquery-ui.js'></script>
+<script type='text/javascript' src='bs2todo.js'></script>
+</head>
+<body>
+<div id='content_wrapper'>
+  <h2>BS2Todo&nbsp;<span id='ver'></span>&nbsp;&nbsp;
+  <a href='javascript:;' onclick='BS2LogManager.show_log_list()' class='log_list' title='View available logs'></a>
+  <a href='javascript:;' onclick='bs2export()' class='manage_icon' title='Management'></a>
+  </h2>
+  <div id='content'>
+  <table id='add_mark'><tr><td><a href='javascript:lm.create();' title='Create a new list'>+&nbsp;Create</a></table>
+  </div>
+  <div style='clear:both'></div>
+</div>
+
+<script type='text/javascript'>
+function get_version(callback) {
+  chrome.management.getAll(function (exts) {
+    for (var i in exts) {
+      var e = exts[i];
+      if (e.name == 'BS2Todo')
+        callback(e.version);
+    }
+  });
+}
+
+window.lm = new ListManager();
+window.lm.load_all();
+
+
+$(function () {
+  get_version(function(ver) {
+    $('#ver').html(ver);
+  });
+});
+</script>
+</body>
+</html>
